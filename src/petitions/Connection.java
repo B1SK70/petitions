@@ -31,8 +31,11 @@ public class Connection implements Runnable {
         sc = new SC(parent, this);
         cc = new CC(parent, this);
 
-        new Thread(sc).start();
-        new Thread(cc).start();
+        scThread = new Thread(sc);
+        scThread.start();
+        
+        ccThread = new Thread(cc);
+        ccThread.start();
     }
 
     public Connection(Petitions parent, String connTo) throws IOException {
