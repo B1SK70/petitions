@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Connection implements Runnable {
 
@@ -68,6 +70,11 @@ public class Connection implements Runnable {
     }
 
     public void begginSaludation() {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException ex) {
+            System.out.println(ex);
+        }
         sendRequest("IP");
     }
 
@@ -168,12 +175,16 @@ public class Connection implements Runnable {
         connOk = false;
         s = null;
         
+        String newConTo = (connectedIP == null)? "N" : connectedIP ;
+        
+        System.out.println("new conn to " + newConTo);
+        
         sc = new SC(parent, this);
+        cc = new CC(parent, this, newConTo);
+
         scThread = new Thread(sc);
         scThread.start();
         
-        
-        cc = new CC(parent, this, connectedIP);
         ccThread = new Thread(cc);
         ccThread.start();
         
