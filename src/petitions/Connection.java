@@ -15,23 +15,34 @@ public class Connection implements Runnable {
     PrintWriter pr;
     BufferedReader reader;
 
+    SC sc;
+    CC cc;
+    
+    Thread scThread;
+    Thread ccThread;
+
     private String connectedIP = null;
     private String connectedName = null;
 
     public Connection(Petitions parent) throws IOException {
         this.parent = parent;
-        SC sc = new SC(parent, this);
-        CC cc = new CC(parent, this);
+        sc = new SC(parent, this);
+        cc = new CC(parent, this);
+
         new Thread(sc).start();
         new Thread(cc).start();
     }
 
     public Connection(Petitions parent, String connTo) throws IOException {
         this.parent = parent;
-        SC sc = new SC(parent, this);
-        CC cc = new CC(parent, this, connTo);
-        new Thread(sc).start();
-        new Thread(cc).start();
+        sc = new SC(parent, this);
+        cc = new CC(parent, this, connTo);
+
+        scThread = new Thread(sc);
+        scThread.start();
+        
+        ccThread = new Thread(cc);
+        ccThread.start();
     }
 
     public boolean connected() {
@@ -137,6 +148,40 @@ public class Connection implements Runnable {
         pr.flush();
     }
 
+    public String getConnectedTo() {
+        return connectedIP;
+    }
+
+    private void doSomethingWithData(String string) {
+        System.out.println("Saludation finished");
+    }
+
+    private void displayConnectionData() {
+        System.out.println(
+                "----------\n"
+                + parent.whoIAm() + ": I'm connected to " + connectedName + " with IP " + connectedIP
+                + "\n----------"
+        );
+    }
+
+    public void resetConnection() {
+        connOk = false;
+        s = null;
+        
+        sc = new SC(parent, this);
+        scThread = new Thread(sc);
+        scThread.start();
+        
+        
+        cc = new CC(parent, this, connectedIP);
+        ccThread = new Thread(cc);
+        ccThread.start();
+        
+        connectedIP = null;
+        connectedName = null;
+        
+    }
+
     @Override
     public void run() {
         while (true) {
@@ -155,23 +200,13 @@ public class Connection implements Runnable {
                         processReceived(received);
                     }
                 } catch (Exception e) {
-                    System.out.println(e);
+                    
+                    System.out.println(e + "Reseting connection");
+                    new HS(this);
                 }
 
             }
         }
-    }
-
-    private void doSomethingWithData(String string) {
-        System.out.println("Saludation finished");
-    }
-
-    private void displayConnectionData() {
-        System.out.println(
-                "----------\n"
-                + parent.whoIAm() + ": I'm connected to " + connectedName + " with IP " + connectedIP
-                + "\n----------"
-        );
     }
 
 }

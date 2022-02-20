@@ -34,7 +34,6 @@ public class SC implements Runnable {
                 }
                 
                 connection.begginSaludation();
-                
                 break;
 
             } catch (IOException ex) {
