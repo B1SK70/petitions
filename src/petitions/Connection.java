@@ -167,8 +167,11 @@ public class Connection implements Runnable {
         s = null;
         
         String newConTo = (connectedIP == null)? "N" : connectedIP ;
+       
+        connectedIP = null;
+        connectedName = null;
         
-        System.out.println("new conn to " + newConTo);
+        System.out.println("new connTo aiming to " + newConTo);
         
         sc = new SC(parent, this);
         cc = new CC(parent, this, newConTo);
@@ -178,9 +181,7 @@ public class Connection implements Runnable {
         
         ccThread = new Thread(cc);
         ccThread.start();
-        
-        connectedIP = null;
-        connectedName = null;
+       
         
     }
 

@@ -8,7 +8,7 @@ public class MyTask {
 
         int port = 10001;
 
-        Petitions p1 = new Petitions("Arnau", port, "172.16.8.134");
+        Petitions p1 = new Petitions("Arnau", port, "172.16.201.2");
         new Thread(p1).start();
         
 //        Petitions p2 = new Petitions("Jandro", port, "N");
