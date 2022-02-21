@@ -26,18 +26,6 @@ public class Connection implements Runnable {
     private String connectedIP = null;
     private String connectedName = null;
 
-    public Connection(Petitions parent) throws IOException {
-        this.parent = parent;
-        sc = new SC(parent, this);
-        cc = new CC(parent, this);
-
-        scThread = new Thread(sc);
-        scThread.start();
-        
-        ccThread = new Thread(cc);
-        ccThread.start();
-    }
-
     public Connection(Petitions parent, String connTo) throws IOException {
         this.parent = parent;
         sc = new SC(parent, this);
@@ -56,8 +44,8 @@ public class Connection implements Runnable {
 
     public synchronized void setSocket(Socket s) throws IOException {
         if (this.s == null) {
-            System.out.println("socket setted");
             this.s = s;
+            System.out.println("socket setted");
             connOk = true;
 
             pr = new PrintWriter(s.getOutputStream());

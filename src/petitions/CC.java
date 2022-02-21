@@ -9,13 +9,6 @@ class CC implements Runnable {
     Connection connection;
     int port;
     String connTo;
-
-    public CC(Petitions petition, Connection connection) {
-        this.petition = petition;
-        this.connection = connection;
-        this.port = petition.getPort();
-        this.connTo = "N";
-    }
     
     public CC(Petitions petition, Connection connection, String connTo) {
         this.petition = petition;

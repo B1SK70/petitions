@@ -26,15 +26,6 @@ public class Petitions implements Runnable {
         new Thread(conn).start();
     }
 
-    public Petitions(String username, int port) throws IOException {
-        this.username = username;
-        this.port = port;
-        openConnections = new ArrayList<Connection>();
-        Connection conn = new Connection(this);
-        openConnections.add(conn);
-        new Thread(conn).start();
-    }
-
     private void connsStatus() {
         for (Connection openConnection : openConnections) {
             System.out.println(whoIAm() + ": " + openConnection.connected());
@@ -60,7 +51,7 @@ public class Petitions implements Runnable {
                 Enumeration ee = n.getInetAddresses();
                 while (ee.hasMoreElements()) {
                     InetAddress i = (InetAddress) ee.nextElement();
-                    if (i.getHostAddress().contains("192.168.1.")) {
+                    if (i.getHostAddress().contains("172.16.")) {
                         ip = i.getHostAddress();
                     }
                 }
