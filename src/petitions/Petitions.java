@@ -51,7 +51,7 @@ public class Petitions implements Runnable {
                 Enumeration ee = n.getInetAddresses();
                 while (ee.hasMoreElements()) {
                     InetAddress i = (InetAddress) ee.nextElement();
-                    if (i.getHostAddress().contains("172.16.")) {
+                    if (i.getHostAddress().contains("172.16.") || i.getHostAddress().contains("192.168.")) {
                         ip = i.getHostAddress();
                     }
                 }
