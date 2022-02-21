@@ -27,6 +27,7 @@ public class SC implements Runnable {
 
                 ss = new ServerSocket(port);
                 connection.setSocket(ss.accept());
+                System.out.println("via SC" + connection.connected());
                 
                 try {
                     Thread.sleep(100);

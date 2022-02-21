@@ -24,6 +24,7 @@ class CC implements Runnable {
 
             try {
                 if (!connTo.equals("N"))connection.setSocket(new Socket(connTo, port));
+                System.out.println("via CC" + connection.connected());
                 break;
                 
             } catch (IOException ex) {
