@@ -13,10 +13,6 @@ public class MyTask {
         
 //        Petitions p2 = new Petitions("Jandro", port, "N");
 //        new Thread(p2).start();
-        
-        
-        //Petitions p2 = new Petitions("Jandro", port, addressBook);
-        //new Thread(p2).start();
 
     }
 
